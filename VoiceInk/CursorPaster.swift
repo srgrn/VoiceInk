@@ -1,17 +1,18 @@
 import Foundation
 import AppKit
+import os
 
 class CursorPaster {
-    private static let pasteCompletionDelay: TimeInterval = 0.6
-    
+    private static let pasteCompletionDelay: TimeInterval = 0.3
+    private static let logger = Logger(subsystem: "com.prakashjoshipax.voiceink", category: "CursorPaster")
     static func pasteAtCursor(_ text: String, shouldPreserveClipboard: Bool = true) {
         let pasteboard = NSPasteboard.general
-        
+        logger.debug("Pasting text: \(text)")
         var savedContents: [(NSPasteboard.PasteboardType, Data)] = []
         
         if shouldPreserveClipboard {
             let currentItems = pasteboard.pasteboardItems ?? []
-            
+            logger.debug("Saving clipboard contents: \(currentItems.count)")
             for item in currentItems {
                 for type in item.types {
                     if let data = item.data(forType: type) {
@@ -22,8 +23,11 @@ class CursorPaster {
         }
         
         pasteboard.clearContents()
-        pasteboard.setString(text, forType: .string)
-        
+        let item = NSPasteboardItem()
+        item.setString(text, forType: .string)
+        item.setString(text, forType: ClipboardManager.voiceInkPasteboardType)
+        pasteboard.writeObjects([item])
+        logger.debug("pasteboard set to \(item)")
         if UserDefaults.standard.bool(forKey: "UseAppleScriptPaste") {
             _ = pasteUsingAppleScript()
         } else {

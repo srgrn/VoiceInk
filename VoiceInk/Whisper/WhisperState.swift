@@ -57,8 +57,7 @@ class WhisperState: NSObject, ObservableObject {
     // Transcription Services
     private var localTranscriptionService: LocalTranscriptionService!
     private lazy var cloudTranscriptionService = CloudTranscriptionService()
-    private lazy var nativeAppleTranscriptionService = NativeAppleTranscriptionService()
-    private lazy var parakeetTranscriptionService = ParakeetTranscriptionService(customModelsDirectory: parakeetModelsDirectory)
+//    private lazy var nativeAppleTranscriptionService = NativeAppleTranscriptionService()
     
     private var modelUrl: URL? {
         let possibleURLs = [
@@ -252,10 +251,15 @@ class WhisperState: NSObject, ObservableObject {
             switch model.provider {
             case .local:
                 transcriptionService = localTranscriptionService
+<<<<<<< HEAD
                     case .parakeet:
             transcriptionService = parakeetTranscriptionService
             case .nativeApple:
                 transcriptionService = nativeAppleTranscriptionService
+=======
+//            case .nativeApple:
+//                transcriptionService = nativeAppleTranscriptionService
+>>>>>>> fbfc6b2 (compiling on osx 15.4 and supporting custom pasteboard type for maccy)
             default:
                 transcriptionService = cloudTranscriptionService
             }

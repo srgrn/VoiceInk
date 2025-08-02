@@ -2,6 +2,9 @@ import SwiftUI
 import AppKit
 
 struct ClipboardManager {
+    // Custom pasteboard type for VoiceInk transcriptions
+    static let voiceInkPasteboardType = NSPasteboard.PasteboardType("com.prakashjoshipax.VoiceInk.transcription")
+    
     enum ClipboardError: Error {
         case copyFailed
         case accessDenied
@@ -10,7 +13,10 @@ struct ClipboardManager {
     static func copyToClipboard(_ text: String) -> Bool {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
-        return pasteboard.setString(text, forType: .string)
+        let item = NSPasteboardItem()
+        item.setString(text, forType: .string)
+//        item.setString(text, forType: ClipboardManager.voiceInkPasteboardType)
+        return pasteboard.writeObjects([item])
     }
     
     static func getClipboardContent() -> String? {

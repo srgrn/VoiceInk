@@ -78,27 +78,14 @@ import Foundation
     }
     
     private static let predefinedModels: [any TranscriptionModel] = [
-        // Native Apple Model
-        NativeAppleModel(
-            name: "apple-speech",
-            displayName: "Apple Speech",
-            description: "Uses the native Apple Speech framework for transcription. Requires macOS 26.",
-            isMultilingualModel: true,
-            supportedLanguages: getLanguageDictionary(isMultilingual: true, provider: .nativeApple)
-        ),
-        
-        // Parakeet Model
-        ParakeetModel(
-            name: "parakeet-tdt-0.6b",
-            displayName: "Parakeet",
-            description: "NVIDIA's ASR model for lightning-fast english transcription.",
-            size: "600 MB",
-            speed: 0.99,
-            accuracy: 0.94,
-            ramUsage: 0.8,
-            supportedLanguages: getLanguageDictionary(isMultilingual: false, provider: .parakeet)
-        ),
-        
+//        // Native Apple Model
+//        NativeAppleModel(
+//            name: "apple-speech",
+//            displayName: "Apple Speech",
+//            description: "Uses the native Apple Speech framework for transcription. Requires macOS 26.",
+//            isMultilingualModel: true,
+//            supportedLanguages: getLanguageDictionary(isMultilingual: true, provider: .nativeApple)
+//        ),
          // Local Models
          LocalModel(
              name: "ggml-tiny",
